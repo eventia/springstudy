@@ -6,6 +6,8 @@ public class MyCalculator {
 	private int firstNum;
 	private int secondNum;
 
+
+	
 	public MyCalculator() {	}
 	public void setCalculator(Calculator calculator) { this.calculator = calculator; }
 	public void setFirstNum(int firstNum) { this.firstNum = firstNum; }
