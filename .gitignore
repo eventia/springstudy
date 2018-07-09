@@ -2,4 +2,8 @@
 RemoteSystemsTempFiles
 Servers
 *.class
+*.bat
+.gitignore
+
+zzz
 /.recommenders/
