@@ -22,7 +22,7 @@ public class LogAop {
 // 	@Pointcut("bean(student)")	//student 빈에만 적용
 // 	@Pointcut("bean(*ker)")		//~ker로 끝나는 빈에만 적용
 
-	@Pointcut("within(com.wind.s10.*)")
+	@Pointcut("bean(*ker)")
 	private void pointcutMethod() {
 	}
 	
