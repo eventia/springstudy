@@ -31,5 +31,12 @@ public class Student {
 		System.out.println("나이 : " + getAge());
 		System.out.println("학년 : " + getGradeNum());
 		System.out.println("반 : " + getClassNum());
+		
+		try {
+			System.out.println(10/0);
+		} catch (Exception e) {
+			System.out.println("Zero Div Error");
 		}
+		
+	}
 }
