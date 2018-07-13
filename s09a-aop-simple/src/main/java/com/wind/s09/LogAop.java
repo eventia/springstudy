@@ -4,16 +4,16 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 public class LogAop {
 	
-	public Object loggerAop(ProceedingJoinPoint joinpoin) throws Throwable {
+	public Object loggerAop(ProceedingJoinPoint joinpoint) throws Throwable {
 		
 		// 전처리
-		String signatureStr = joinpoin.getSignature().toShortString();
+		String signatureStr = joinpoint.getSignature().toShortString();
 		System.out.println(signatureStr + " is start.");
 		long st = System.currentTimeMillis();
 		
 		// 핵심코드
 		try {
-			Object obj = joinpoin.proceed();
+			Object obj = joinpoint.proceed();
 			return obj;
 		} finally {
 		// 후처리
