@@ -10,5 +10,7 @@
 
 content.jsp
 
+<p> ID : ${id} </p>
+
 </body>
 </html>

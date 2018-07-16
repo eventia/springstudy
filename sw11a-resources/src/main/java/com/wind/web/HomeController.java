@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping("/")
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -36,13 +33,15 @@ public class HomeController {
 	@RequestMapping("/board/view")
 	public String view(Model model) {
 		model.addAttribute("id", 20);
+		model.addAttribute("name", "ABC");
 		System.out.println(model);
 		return "board/view";
 	}
 	
 	// board/content
 	@RequestMapping("/board/content")
-	public String content() {
+	public String content(Model model) {
+		model.addAttribute("id", 10);
 		return "board/content";
 	}
 	
