@@ -33,4 +33,12 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/board/view")
+	public String view() {
+		
+		return "board/view";
+	}
+	
+	// board/content
+	// board/reply
 }
