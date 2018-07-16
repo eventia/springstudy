@@ -8,9 +8,7 @@
 </head>
 <body>
 
-view.jsp
-
-<p> ID : ${id} </p>
+content.jsp
 
 </body>
 </html>
