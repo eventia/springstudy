@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
@@ -47,8 +47,12 @@ public class HomeController {
 	
 	// board/reply
 	@RequestMapping("/board/reply")
-	public String reply() {
-		return "board/reply";
+	public ModelAndView reply() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("id", 15);
+		mv.addObject("name", "Wind");
+		mv.setViewName("board/reply");
+		return mv;
 	}
 	
 }

@@ -9,6 +9,8 @@
 <body>
 
 reply.jsp
+<p> ID : ${id} </p>
+<p> NAME : ${name} </p>
 
 </body>
 </html>
