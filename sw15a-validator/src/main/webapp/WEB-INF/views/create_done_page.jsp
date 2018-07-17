@@ -8,11 +8,10 @@
 </head>
 <body>
 
-<p> join.jsp
-<p> ID : ${mem.id } 
-<p> PW : ${mem.pw }
-<p> NAME : ${mem.name }
-<p> EMAIL : ${mem.email }
+<p> creade_done_page.jsp </p>
+
+<p> 이름 : ${student.name } </p>
+<p> 아이디 : ${student.id } </p>
 
 </body>
 </html>

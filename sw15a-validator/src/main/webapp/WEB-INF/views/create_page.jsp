@@ -8,11 +8,12 @@
 </head>
 <body>
 
-<p> join.jsp
-<p> ID : ${mem.id } 
-<p> PW : ${mem.pw }
-<p> NAME : ${mem.name }
-<p> EMAIL : ${mem.email }
+<form action="create">
+	이름 : <input type="text" name="name" value="${student.name}"> </br>
+	아이디 : <input type="text" name="id" value="${student.id}"> </br>
+	<input type="submit" value="전송"> </br>
+</form>
+
 
 </body>
 </html>

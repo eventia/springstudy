@@ -8,11 +8,8 @@
 </head>
 <body>
 
-<p> join.jsp
-<p> ID : ${mem.id } 
-<p> PW : ${mem.pw }
-<p> NAME : ${mem.name }
-<p> EMAIL : ${mem.email }
+<p> student_ng.jsp </p>
+<%-- <p> ID : ${id } </p> --%>
 
 </body>
 </html>
