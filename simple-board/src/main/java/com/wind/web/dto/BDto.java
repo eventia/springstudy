@@ -16,9 +16,10 @@ public class BDto {
 	
 	public BDto() { }
 
-	public BDto(int bId, String bName, String bTitle, String bContent, Timestamp bDate, int bHit, int bGroup, int bStep,
-			int bIndent) {
-		super();
+	public BDto(int bId, String bName, String bTitle, 
+			String bContent, Timestamp bDate, int bHit, 
+			int bGroup, int bStep, int bIndent) {
+
 		this.bId = bId;
 		this.bName = bName;
 		this.bTitle = bTitle;
