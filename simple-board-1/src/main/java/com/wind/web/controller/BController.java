@@ -27,4 +27,15 @@ public class BController {
 		service.execute(model);
 		return "list";
 	}
+	
+	@RequestMapping("/content_view")
+	public String content_view(
+		HttpServletRequest httpServletRequest, Model model) {
+		
+		System.out.println("/content_view");
+		model.addAttribute("request", httpServletRequest);
+		service = new BContentService();
+		service.execute(model);
+		return "content_view";
+	}
 }
