@@ -1,9 +1,11 @@
 package com.wind.web.controller;
 
+import javax.print.attribute.standard.Severity;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,4 +40,20 @@ public class BController {
 		service.execute(model);
 		return "content_view";
 	}
+	
+	@RequestMapping("/write_view")
+	public String write_view(Model model) {
+		System.out.println("/write_view");
+		return "write_view";
+	}
+	
+	@RequestMapping("/write")
+	public String write(HttpServletRequest request, Model model) {
+		System.out.println("/write");
+		model.addAttribute("request", request);
+		service = new BWriteService();
+		service.execute(model);
+		return "redirect:list";
+	}
+	
 }
