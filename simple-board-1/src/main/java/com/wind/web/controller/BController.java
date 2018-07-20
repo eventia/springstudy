@@ -11,6 +11,8 @@ import com.wind.web.service.BContentService;
 import com.wind.web.service.BDeleteService;
 import com.wind.web.service.BListService;
 import com.wind.web.service.BModifyService;
+import com.wind.web.service.BReplyService;
+import com.wind.web.service.BReplyViewService;
 import com.wind.web.service.BService;
 import com.wind.web.service.BWriteService;
 
@@ -69,4 +71,23 @@ public class BController {
 		service.execute(model);
 		return "redirect:list";
 	}
+	
+	@RequestMapping("/reply")
+	public String reply(HttpServletRequest request, Model model) {
+		System.out.println("/reply");
+		model.addAttribute("request", request);
+		service = new BReplyService();
+		service.execute(model);
+		return "redirect:list";
+	}
+
+	@RequestMapping("/reply_view")
+	public String reply_view(HttpServletRequest request, Model model) {
+		System.out.println("/reply_view");
+		model.addAttribute("request", request);
+		service = new BReplyViewService();
+		service.execute(model);
+		return "reply_view";
+	}
+	
 }

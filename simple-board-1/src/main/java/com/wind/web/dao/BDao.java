@@ -181,5 +181,80 @@ public class BDao {
 		}
 	}
 
-	
+	public BDto reply_view(String str) {
+		BDto dto = null;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			String query = "select * from mvc_board where bId = ?";
+			
+			connection = dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, Integer.parseInt(str));
+			resultSet = preparedStatement.executeQuery();
+
+			if(resultSet.next()) {
+				int bId = resultSet.getInt("bId");
+				String bName = resultSet.getString("bName");
+				String bTitle = resultSet.getString("bTitle");
+				String bContent = resultSet.getString("bContent");
+				Timestamp bDate = resultSet.getTimestamp("bDate");
+				int bHit = resultSet.getInt("bHit");
+				int bGroup = resultSet.getInt("bGroup");
+				int bStep = resultSet.getInt("bStep");
+				int bIndent = resultSet.getInt("bIndent");
+				
+				dto = new BDto(bId, bName, bTitle, bContent, bDate, 
+						bHit, bGroup, bStep, bIndent);
+			}
+			
+		} catch (Exception e) { e.printStackTrace(); }
+		finally {
+			try {
+				if(resultSet != null) resultSet.close();
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			} catch (Exception e2) { e2.printStackTrace(); }
+		}
+		return dto;
+	}
+
+	public void reply(String bId, String bName, String bTitle, 
+		String bContent, String bGroup, String bStep, String bIndent) {
+		
+		// replyShape(bGroup, bStep);
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			String query ="insert into mvc_board ("
+				+ "bId, bName, bTitle, "
+				+ "bContent, bGroup, bStep, bIndent) values ("
+				+ "mvc_board_seq.nextval, ?, ?,"
+				+ "?, ?, ?, ?)";
+			
+			connection = dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1, bName);
+			preparedStatement.setString(2, bTitle);
+			preparedStatement.setString(3, bContent);
+			preparedStatement.setInt(4, Integer.parseInt(bGroup));
+			preparedStatement.setInt(5, Integer.parseInt(bStep));
+			preparedStatement.setInt(6, Integer.parseInt(bIndent));
+			
+			int rn = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) { e.printStackTrace(); }
+		finally {
+			try {
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			} catch (Exception e2) { e2.printStackTrace(); }
+		}
+	}
 }
