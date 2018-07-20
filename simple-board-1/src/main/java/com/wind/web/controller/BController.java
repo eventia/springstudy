@@ -1,11 +1,9 @@
 package com.wind.web.controller;
 
-import javax.print.attribute.standard.Severity;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -13,8 +11,6 @@ import com.wind.web.service.BContentService;
 import com.wind.web.service.BDeleteService;
 import com.wind.web.service.BListService;
 import com.wind.web.service.BModifyService;
-import com.wind.web.service.BReplyService;
-import com.wind.web.service.BReplyViewService;
 import com.wind.web.service.BService;
 import com.wind.web.service.BWriteService;
 
@@ -56,4 +52,21 @@ public class BController {
 		return "redirect:list";
 	}
 	
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		System.out.println("/delete");
+		model.addAttribute("request", request);
+		service = new BDeleteService();
+		service.execute(model);
+		return "redirect:list";
+	}
+
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modify(HttpServletRequest request, Model model) {
+		System.out.println("/modify");
+		model.addAttribute("request", request);
+		service = new BModifyService();
+		service.execute(model);
+		return "redirect:list";
+	}
 }
