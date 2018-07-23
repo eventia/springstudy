@@ -70,7 +70,7 @@ public class BDao {
 
 	public BDto contentView(String strID) {
 		
-		// upHit(strID);
+		upHit(strID);
 		
 		BDto dto = null;
 		
@@ -225,7 +225,7 @@ public class BDao {
 	public void reply(String bId, String bName, String bTitle, 
 		String bContent, String bGroup, String bStep, String bIndent) {
 		
-		// replyShape(bGroup, bStep);
+		replyShape(bGroup, bStep);
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -244,8 +244,8 @@ public class BDao {
 			preparedStatement.setString(2, bTitle);
 			preparedStatement.setString(3, bContent);
 			preparedStatement.setInt(4, Integer.parseInt(bGroup));
-			preparedStatement.setInt(5, Integer.parseInt(bStep));
-			preparedStatement.setInt(6, Integer.parseInt(bIndent));
+			preparedStatement.setInt(5, Integer.parseInt(bStep)+1);
+			preparedStatement.setInt(6, Integer.parseInt(bIndent)+1);
 			
 			int rn = preparedStatement.executeUpdate();
 			
@@ -254,6 +254,51 @@ public class BDao {
 			try {
 				if(preparedStatement != null) preparedStatement.close();
 				if(connection != null) connection.close();
+			} catch (Exception e2) { e2.printStackTrace(); }
+		}
+	}
+	
+	public void upHit(String bId) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			String query = 
+				"update mvc_board set bHit = bHit + 1 where bId = ?"; 
+			connection = dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, bId);
+//			preparedStatement.setInt(1, Integer.parseInt(bId));
+			int rn = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) { e.printStackTrace(); }
+		finally {
+			try {
+				if(preparedStatement != null) preparedStatement.close();
+				if(connection != null) connection.close();
+			} catch (Exception e2) { e2.printStackTrace(); }
+		}
+	}
+	
+	private void replyShape(String strGroup, String strStep) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		System.out.println("replyShape()");
+		try {
+			String query = "update mvc_board set bStep = bStep + 1 "
+				+ "where bGroup = ? and bStep > ?";
+			connection = dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, Integer.parseInt(strGroup));
+			preparedStatement.setInt(2, Integer.parseInt(strStep));
+			int rn = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) { e.printStackTrace(); }
+		finally {
+			try {
+				if(preparedStatement!=null) preparedStatement.close();
+				if(connection!=null) connection.close();
 			} catch (Exception e2) { e2.printStackTrace(); }
 		}
 	}
