@@ -32,7 +32,7 @@ public class BController {
 	
 	@RequestMapping("/content_view")
 	public String content_view(HttpServletRequest request, Model model) { System.out.println("/content_view");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		BDto dto = dao.contentView(request.getParameter("bId"));
 		model.addAttribute("content_view", dto);
 		return "content_view";
@@ -45,7 +45,7 @@ public class BController {
 	
 	@RequestMapping("/write")
 	public String write(HttpServletRequest request, Model model) { System.out.println("/write");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		dao.write(request.getParameter("bName"),
 				request.getParameter("bTitle"), 
 				request.getParameter("bContent"));
@@ -54,14 +54,14 @@ public class BController {
 	
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) { System.out.println("/delete");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		dao.delete(request.getParameter("bId"));
 		return "redirect:list";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(HttpServletRequest request, Model model) { System.out.println("/modify");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		dao.modify(request.getParameter("bId"),
 				request.getParameter("bName"), 
 				request.getParameter("bTitle"),
@@ -71,7 +71,7 @@ public class BController {
 	
 	@RequestMapping("/reply")
 	public String reply(HttpServletRequest request, Model model) { System.out.println("/reply");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		dao.reply(request.getParameter("bId"),
 				request.getParameter("bName"),
 				request.getParameter("bTitle"),
@@ -84,7 +84,7 @@ public class BController {
 	
 	@RequestMapping("/reply_view")
 	public String reply_view(HttpServletRequest request, Model model){ System.out.println("reply_view()");
-		model.addAttribute("request", request);
+//		model.addAttribute("request", request);
 		BDto dto = dao.reply_view(request.getParameter("bId"));
 		model.addAttribute("reply_view", dto);
 		return "reply_view";
