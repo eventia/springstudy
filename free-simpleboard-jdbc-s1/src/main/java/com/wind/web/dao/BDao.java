@@ -1,30 +1,27 @@
 package com.wind.web.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import com.wind.web.dto.BDto;
-import com.wind.web.util.Constant;
 
 public class BDao {
 	
-	JdbcTemplate template = null;
+	JdbcTemplate template;
+	
+	@Autowired
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+	}
 	
 	public BDao() {
-		template = Constant.template;
+//		template = Constant.template;
 	}
 	
 	public ArrayList<BDto> list() {
