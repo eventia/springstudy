@@ -43,8 +43,10 @@ public class BDao {
 	}
 
 	public void write(final String bName, final String bTitle, final String bContent) {
-		String query = "insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) "
-				+ "values (mvc_board_seq.nextval, ?, ?, ?, 0, mvc_board_seq.currval, 0, 0)";
+		String query = "insert into mvc_board (bId, bName, bTitle, "
+				+ "bContent, bHit, bGroup, bStep, bIndent) "
+				+ "values (mvc_board_seq.nextval, ?, ?, "
+				+ "?, 0, mvc_board_seq.currval, 0, 0)";
 		template.update(query, new PreparedStatementSetter() {
 		@Override
 		public void setValues(PreparedStatement ps) throws SQLException {			
@@ -92,7 +94,10 @@ public class BDao {
 
 	public void reply(final String bId, final String bName, final String bTitle, final String bContent, final String bGroup, final String bStep, final String bIndent) {
 		replyShape(bGroup, bStep);
-		String query = "insert into mvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) values (mvc_board_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		String query = "insert into mvc_board ("
+			+ "bId, bName, bTitle, bContent, "
+			+ "bGroup, bStep, bIndent) values ("
+			+ "mvc_board_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		template.update(query, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
