@@ -28,7 +28,7 @@ public class ContentDao implements IDao{
 	
 	@Override
 	public ArrayList<ContentDto> listDao() {
-		String query = "select * from board order by mId desc";
+		String query = "select * from BOARD order by mId desc";
 		ArrayList<ContentDto> dtos = (ArrayList<ContentDto>) template.query(query, new BeanPropertyRowMapper<ContentDto>(ContentDto.class));
 		return dtos;
 	}
