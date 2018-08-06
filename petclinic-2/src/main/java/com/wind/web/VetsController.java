@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wind.web.dao.SpecialtiesDao;
 import com.wind.web.dao.VetsDao;
+import com.wind.web.dto.VetsDto;
 import com.wind.web.dto.VetspecialtiesDto;
 
 @Controller
@@ -34,7 +35,6 @@ public class VetsController {
 		return "vetselect_view"; 
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/vetselect")
 	public String vetselect(HttpServletRequest request, Model model) {
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
@@ -43,8 +43,7 @@ public class VetsController {
 		ArrayList<VetspecialtiesDto> dto;
 		dto = dao.vetselectDao(Integer.parseInt(request.getParameter("specialty_id")));
 
-		@SuppressWarnings("rawtypes")
-		ArrayList dto2 = new ArrayList<Integer>();
+		ArrayList<VetsDto> dto2 = new ArrayList<VetsDto>();
 		for(int i=0;i<dto.size();i++) {
 			dto2.add(dao.vetselect2Dao(dto.get(i).getVet_id()));
 			System.out.println(dto.get(i).getVet_id());
