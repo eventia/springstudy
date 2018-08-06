@@ -38,7 +38,7 @@ public class VetsController {
 	@RequestMapping("/vetselect")
 	public String vetselect(HttpServletRequest request, Model model) {
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
-		model.addAttribute("vetselect", dao.vetselectDao(Integer.parseInt(request.getParameter("specialty_id"))));
+//		model.addAttribute("vetselect", dao.vetselectDao(Integer.parseInt(request.getParameter("specialty_id"))));
 		
 		ArrayList<VetspecialtiesDto> dto;
 		dto = dao.vetselectDao(Integer.parseInt(request.getParameter("specialty_id")));
