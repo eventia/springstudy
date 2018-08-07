@@ -23,6 +23,10 @@
 		SELECT * FROM vets WHERE id = #{param1}
 	</select>
 
+  	<select id="vetselect3Dao" resultType="com.wind.web.dto.VetsDto">
+		SELECT * FROM vets WHERE id IN (SELECT vet_id FROM 
+			vet_specialties WHERE specialty_id = #{param1})
+	</select>
 
 
 
