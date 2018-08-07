@@ -14,11 +14,16 @@ vetslist.jsp
 <table width="600" cellpadding="0" cellspacing="0" border="1">
 	<c:forEach items="${vetslist}" var="dto">
 		<tr>
-			<td>id = </td>
 			<td>${dto.id}</td>
+			<td>${dto.first_name}, ${dto.last_name}</td>
 		</tr>
 	</c:forEach>
 </table>
+
+<P><a href="list">FreeBoard</a>
+<P><a href="vetslist">Pet-Clinic</a>
+<P><a href="vetselect_view">수의사 전공별 열람</a>
+<P><a href="vet_add_view">수의사 등록</a>
 
 
 </body>
