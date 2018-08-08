@@ -79,10 +79,36 @@ public class VetsController {
 		return "redirect:vetslist";
 	}
 	
+	@RequestMapping("/vet_add_major")
+	public String vet_add_major(Model model) {
+		VetsDao dao1 = sqlSession.getMapper(VetsDao.class);
+		SpecialtiesDao dao2 = sqlSession.getMapper(SpecialtiesDao.class);
+		model.addAttribute("vetslist",dao1.vetslistDao());
+		model.addAttribute("specialtieslist", dao2.specialtieslistDao());
+		
+		return "vet_add_major";
+	}
 	
+	@RequestMapping("/vet_add_major_mod")
+	//vet_id=6&major=1&major=2
+	public String vet_add_major_mod(HttpServletRequest request, Model model) {
+		String vet_id = request.getParameter("vet_id");
+		String[] major = request.getParameterValues("major");
+		
+		del_vetspec(vet_id);
+		
+		for(int i=0; i<major.length; i++) {
+//			add_vetspec(vet_id, major[i]);
+		}
+		
+		return "redirect:vetslist";
+	}
 	
-	
-	
+	public void del_vetspec(String vet_id){
+		// VetspecialtiesDao 만들고
+		// vetspec_deleteDao(vet_id) 생성
+		
+	}
 	
 	
 	
