@@ -4,7 +4,6 @@
 <%@ page session="false" %>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Home</title>
 </head>
 <body>
@@ -12,9 +11,8 @@
 	Hello world!  
 </h1>
 
+Hello World
 
-<P><a href="list">FreeBoard</a>
-<P><a href="vetslist">Pet-Clinic</a>
-
+<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

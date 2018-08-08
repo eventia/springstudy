@@ -25,23 +25,22 @@ public class VetsController {
 	
 	@RequestMapping("/vetslist")
 	public String vetslist(Model model) {
-		VetsDao dao = sqlSession.getMapper(VetsDao.class);
-		model.addAttribute("vetslist", dao.vetslistDao());
+		VetsDao vdao = sqlSession.getMapper(VetsDao.class);
+		model.addAttribute("vetslist", vdao.vetslistDao());
 		return "vetslist";
 	}
 
 	@RequestMapping("/vetslistall")
 	public String vetslistall(Model model) {
 		
-		// model :
-		// vetslist - 의사정보 (id, first_name, last_name)
-		// vetspeslist - 의사ID 와 전공ID 매핑 (vet_id, specialty_id)
-		// specialtieslist - 전공 (id, name)
+		// model : 
+		// vetslist - 의사정보(id, first_name, last_name)
+		// vetspeslist - 의사ID 와 전공ID 맵핑정보 (vet_id, specialty_id)
+		// specialtieslist - 전공정보(id, name)
 		
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
 		VetspecialtiesDao vsdao = sqlSession.getMapper(VetspecialtiesDao.class);
 		SpecialtiesDao sdao = sqlSession.getMapper(SpecialtiesDao.class);
-
 		model.addAttribute("vetslist", dao.vetslistDao());
 		model.addAttribute("vetspeslist", vsdao.vetspeslistDao());
 		model.addAttribute("specialtieslist", sdao.specialtieslistDao());
@@ -49,40 +48,39 @@ public class VetsController {
 		return "vetslistall";
 	}
 	
-	
 	@RequestMapping("/vetselect_view")
-	public String vetselect_view(Model model) {
+	public String vetselect_view(HttpServletRequest request, Model model) { 
 		SpecialtiesDao dao = sqlSession.getMapper(SpecialtiesDao.class);
 		model.addAttribute("vetselect_view", dao.vetselect_viewDao());
-		return "vetselect_view";
+		return "vetselect_view"; 
 	}
 	
 	@RequestMapping("/vetselect")
 	public String vetselect(HttpServletRequest request, Model model) {
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
-		model.addAttribute("vetselect", dao.vetselectDao
-			(Integer.parseInt(request.getParameter("specialty_id"))));
-		
-		ArrayList<VetspecialtiesDto> dto; // dto ... {4,5,8}..dto.get(0)
-		dto = dao.vetselectDao
-				(Integer.parseInt(request.getParameter("specialty_id")));
-		
+	
+		ArrayList<VetspecialtiesDto> dto;
+		dto = dao.vetselectDao(Integer.parseInt(request.getParameter("specialty_id")));
+
 		ArrayList<VetsDto> dto2 = new ArrayList<VetsDto>();
-		
-		for(int i=0; i<dto.size();i++) {
+		for(int i=0;i<dto.size();i++) {
 			dto2.add(dao.vetselect2Dao(dto.get(i).getVet_id()));
-//			System.out.println("vets_id = "+dto.get(i).getVet_id());
+			System.out.println(dto.get(i).getVet_id());
+			System.out.println("vets_id = "+dao.vetselect2Dao(dto.get(i).getVet_id()));
 		}
 		model.addAttribute("vetselect2", dto2);
+		
+		System.out.println("size = " + dto.get(0).getVet_id());		
+		System.out.println("size = " + dto.get(1).getVet_id());		
+		System.out.println(dto.getClass());
+		System.out.println(dto.size());
 		return "vetselect";
 	}
 	
 	@RequestMapping("/vetselect3")
 	public String vetselect3(HttpServletRequest request, Model model) {
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
-		model.addAttribute("vetselect3", dao.vetselect3Dao(
-			Integer.parseInt(request.getParameter("specialty_id"))));
-		
+		model.addAttribute("vetselect3", dao.vetselect3Dao(Integer.parseInt(request.getParameter("specialty_id"))));
 		return "vetselect3";
 	}
 	
@@ -90,13 +88,11 @@ public class VetsController {
 	public String vet_add_view() {
 		return "vet_add_view";
 	}
-	
+
 	@RequestMapping("/vet_add")
 	public String vet_add(HttpServletRequest request) {
 		VetsDao dao = sqlSession.getMapper(VetsDao.class);
-		dao.vet_addDao(request.getParameter("first_name"), 
-				request.getParameter("last_name"));
-		
+		dao.vet_addDao(request.getParameter("first_name"), request.getParameter("last_name"));
 		return "redirect:vetslist";
 	}
 	
@@ -104,44 +100,45 @@ public class VetsController {
 	public String vet_add_major(Model model) {
 		VetsDao dao1 = sqlSession.getMapper(VetsDao.class);
 		SpecialtiesDao dao2 = sqlSession.getMapper(SpecialtiesDao.class);
-		model.addAttribute("vetslist",dao1.vetslistDao());
+		model.addAttribute("vetslist", dao1.vetslistDao());
 		model.addAttribute("specialtieslist", dao2.specialtieslistDao());
-		
 		return "vet_add_major";
 	}
 	
 	@RequestMapping("/vet_add_major_mod")
-	//vet_id=6&major=1&major=2
 	public String vet_add_major_mod(HttpServletRequest request, Model model) {
 		String vet_id = request.getParameter("vet_id");
 		String[] major = request.getParameterValues("major");
-		
 		del_vetspec(vet_id);
-		
-		for(int i=0; i<major.length; i++) {
+
+		for(int i=0;i<major.length;i++)  {
 			add_vetspec(vet_id, major[i]);
 		}
+
 		return "redirect:vetslist";
 	}
 	
-	public void del_vetspec(String vet_id){
-		// VetspecialtiesDao 만들고
-		// vetspec_deleteDao(vet_id) 생성
+	@RequestMapping("/vet_delete")
+	public String vet_delete(HttpServletRequest request) {
+		VetspecialtiesDao dao = sqlSession.getMapper(VetspecialtiesDao.class);
+		dao.vetspec_deleteDao(request.getParameter("id"));
+		return "redirect:vetslist";
+	}
+	
+	
+	public void del_vetspec(String vet_id) {
 		VetspecialtiesDao dao = sqlSession.getMapper(VetspecialtiesDao.class);
 		dao.vetspec_deleteDao(vet_id);
 	}
-	
+
 	public void add_vetspec(String vet_id, String specialty_id) {
 		VetspecialtiesDao dao = sqlSession.getMapper(VetspecialtiesDao.class);
-		dao.add_vetspec(vet_id, specialty_id);
+		dao.vetspec_addDao(vet_id, specialty_id);
 	}
-	
-	
-	
+
 	@ExceptionHandler
 	public String handlerException(Exception e) {
 		return "viewerror";
 	}
-	
 	
 }

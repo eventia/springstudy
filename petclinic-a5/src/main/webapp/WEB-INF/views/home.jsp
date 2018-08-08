@@ -13,8 +13,8 @@
 </h1>
 
 
-<P><a href="list">FreeBoard</a>
-<P><a href="vetslist">Pet-Clinic</a>
+<P><a href="${pageContext.request.contextPath}/list">FreeBoard</a></P>
+<P><a href="${pageContext.request.contextPath}/vetslist">Pet-Clinic</a></P>
 
 </body>
 </html>
