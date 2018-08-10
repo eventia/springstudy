@@ -27,7 +27,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/login.html")
-	public String login(Locale locale, Model model) {
+	public String login() {
 		return "security/login";
 	}
 	
