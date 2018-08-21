@@ -21,6 +21,8 @@
 <%-- USER ID : ${pageContext.request.userPrincipal.name}<br/> --%>
 USER ID : <s:authentication property="name"/><br/>
 <a href="${pageContext.request.contextPath}/j_spring_security_logout">Log Out</a> <br />
+<a href="${pageContext.request.contextPath}/j_spring_security_logout?
+	id=${pageContext.request.userPrincipal.name}">Log Out</a> <br />
 
 </body>
 </html>
