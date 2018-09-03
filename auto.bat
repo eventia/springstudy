@@ -1,5 +1,6 @@
 @echo off
 echo ==============================
+echo [PROCESSING...] git pull
 echo [PROCESSING...] git add --all .
 if [%1] EQU [] (
 echo [PROCESSING...] git commit -m "SpringLecture %date%"
@@ -8,6 +9,8 @@ echo [PROCESSING...] git commit -m "%*"
 )
 echo [PROCESSING...] git push
 echo ==============================
+
+git pull
 
 echo [PROCESSING...] git add --all .
 git add --all .
